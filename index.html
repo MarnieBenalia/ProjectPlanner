@@ -8,6 +8,7 @@
         <title>A la bonne frite</title>
         <link rel="icon" type="image/x-icon" href="imgs/favicon.png">
         <link rel="stylesheet" href="./assets/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="./exec/exec.js" type="module"></script>
         <script src="./exec/dark_mode.js" type="module"></script>
     </head>
@@ -15,7 +16,12 @@
         <header>
             <nav>
                 <button id="genForm">Ajouter formulaire</button>
-                <div>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <div class="menu btn2" id = "menu_burger">
+                        <div class="icon"></div>
+                    </div>
+                </a>
+                <div id="burger">
                     <button id="urgent">URGENT</button>
                     <button id="going">EN COURS</button>
                     <button id="toDo">A FAIRE</button>
@@ -36,8 +42,54 @@
                         <span class="status3">3</span>
                     </div>
                 </div>
-
+                <div class="card">
+                    <div class="title">Titel</div>
+                    <div class="timeLeft">j-15</div>
+                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
+                    <div class="date">12-05-2010</div>
+                    <div class="status">
+                        <span class="status1">1</span>
+                        <span class="status2">2</span>
+                        <span class="status3">3</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">Titel</div>
+                    <div class="timeLeft">j-15</div>
+                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
+                    <div class="date">12-05-2010</div>
+                    <div class="status">
+                        <span class="status1">1</span>
+                        <span class="status2">2</span>
+                        <span class="status3">3</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">Titel</div>
+                    <div class="timeLeft">j-15</div>
+                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
+                    <div class="date">12-05-2010</div>
+                    <div class="status">
+                        <span class="status1">1</span>
+                        <span class="status2">2</span>
+                        <span class="status3">3</span>
+                    </div>
+                </div>
             </div>
         </main>
+        <script>
+            document.getElementById("menu_burger").addEventListener("click", function()
+            {
+                document.getElementById("menu_burger").classList.toggle("open");
+            });
+            function myFunction() {
+              var x = document.getElementById("burger");
+              if (x.style.display === "block") {
+                x.style.display = "none";
+              } else {
+                x.style.display = "block";
+              }
+            }
+            </script>
     </body>
 </html>
