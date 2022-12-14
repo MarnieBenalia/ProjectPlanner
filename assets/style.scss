@@ -1,0 +1,90 @@
+header
+{
+    height: 10vh;
+    position: relative;
+}
+
+#genForm, #urgent, #going, #toDo, #done
+{
+    position:absolute;
+}
+/*
+#genForm
+{
+
+}
+
+#urgent
+{
+
+}
+
+#going
+{
+
+}
+
+#toDo
+{
+
+}
+
+#done
+{
+
+}
+*/
+
+
+
+
+/////
+/////
+/////
+/////
+/////
+
+main
+{
+    margin-top: 5vw;
+}
+
+.card
+{
+    border-radius: 10%;
+    border: 1px solid black;
+    width: 380px;
+    height: 250px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    word-wrap: break-word;
+}
+    
+.title
+{
+    text-align: center;
+    grid-area: 1 / 1 / 2 / 5;
+}
+
+.timeLeft
+{
+    grid-area: 1 / 6 / 2 / 7;
+}
+
+.desc
+{
+    margin-left: 15px;
+    margin-right: 15px;
+    grid-area: 2 / 1 / 5 / 7;
+}
+
+.date
+{
+    grid-area: 5 / 2 / 6 / 4;
+}
+
+.status
+{
+    grid-area: 5 / 4 / 6 / 7;
+}
