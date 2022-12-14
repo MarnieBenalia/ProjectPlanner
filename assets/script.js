@@ -1,19 +1,49 @@
 
-function formulaire(t, dsc, d, s){
-    this.title = t;
-    this.desc = dsc;
-    this.date = d;
-    this.status = s;
+class Formulaire
+{
+    constructor(t, dsc, d, s)
+    {
+        this.title = t;
+        this.desc = dsc;
+        this.date = d;
+        this.status = s;
+    }
+
+    
+    affCard() {
+        
+        let htmlCode = ``;
+    
+        htmlCode =
+    `
+    <div class="card">
+
+        <div class="title">${this.title}</div>
+        <div class="timeLeft"></div>
+        <div class="desc">${this.desc}</div>
+        <div class="date">${this.date}</div>
+            <div class="status">${this.status}
+                <span class="status1"></span>
+                <span class="status2"></span>
+                <span class="status3"></span>
+            </div>
+    
+    </div>
+    
+    `
+    return htmlCode;
+    }
 }
 
+//----------------------Partie formulaire -----------------------------//
+
+//let tmp = new Formulaire("t", "t", "t", "t");
 
 let htmlCode = ``;
-
+let listForm = [];
 function genForm() {
 
     htmlCode =
-    htmlCode +
-
     `
     <form>
 
@@ -58,8 +88,22 @@ const RecupSubmit = document.querySelector('#bSubmit'); // Pour récupérer le c
     let date = document.getElementById("date").value;
     let status = document.getElementById("status").value;
     
+    let newForm = new Formulaire(title, desc, date, status);
+
+    listForm.push(newForm);
+    console.log(listForm);
+    //formCard.innerHTML = newForm.affCard();
+    
+    let tmp = "";
+    listForm.forEach(function(elem) {
+        tmp += elem.affCard();
+    })
+    
+    formCard.innerHTML='<div id="all_card">' + tmp + '</div>';
+
 })
 };
+
 
 const test = document.querySelector('#genForm');// Pour afficher l'html généré dans le js quand on appuie sur le bouton genForm
 
@@ -70,11 +114,9 @@ test.addEventListener('click', e =>{
     
 })
 
-//-----------------------------------------------------------------//
-
-
-
 //----------------------Partie récupération des infos-------------//
+
+
 
 
 // localStorage.setItem("Info formulaire", document.querySelector("#bsumit").value);
