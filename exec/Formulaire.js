@@ -17,13 +17,19 @@ export class Formulaire
         this.desc = dsc;
         this.date = d;
         this.status = s;
+        this.time ;
+
+        let today = new Date();
+        let difference = new Date(this.date).getTime() - today.getTime();
+        this.time = Math.ceil(difference / (1000 * 3600 * 24));
+
     }
 
     affCard()
     {
         let htmlCode = `<div class="card">
                             <div class="title">${this.title}</div>
-                            <div class="timeLeft"></div>
+                            <div class="timeLeft">J-${this.time}</div>
                             <div class="desc">${this.desc}</div>
                             <div class="date">${this.date}</div>
                                 <div class="status">${this.status}

@@ -3,6 +3,7 @@
 import {Formulaire} from './Formulaire.js';
 
 //----------------------Partie definition variables-----------------------------//
+let globalStatus = 0;
 
 //Code HTML pour le formulaire
 let htmlCode = `<div class="form" id="form">
@@ -101,16 +102,11 @@ function genForm()
             let date = document.getElementById("date").value;
             let status = document.getElementById("status").value;
             
-            let newForm = new Formulaire(title, desc, date, status);
+            let newForm = new Formulaire(title, desc, date, status)
 
             listForm.push(newForm);
 
-            let tmp = "";
-            listForm.forEach(function(elem)
-            {
-                tmp += elem.affCard();
-            })
-            formCard.innerHTML='<div id="all_card">' + tmp + '</div>';
+            regroupStatus();
         });
 };
 
@@ -150,6 +146,44 @@ document.getElementById("jsID").addEventListener("click", function()
         else
             x.style.display = "block";
     });
+
+//----------------------Tri par statut -------------//
+
+function regroupStatus()
+{
+    let tmp = '';
+    const formCard = document.getElementsByTagName("main")[0];
+    
+    for (let elem of listForm){
+        if(elem.status == globalStatus || globalStatus == 0){
+            tmp += elem.affCard();
+        }
+    }
+    formCard.innerHTML='<div id="all_card">' + tmp + '</div>';
+}
+
+let toDo = document.getElementById('toDo').addEventListener('click', e =>{
+    globalStatus = 1
+    regroupStatus()
+})
+
+let going = document.getElementById('going').addEventListener('click',e =>{
+    globalStatus = 2
+    regroupStatus()
+})
+
+
+let done = document.getElementById('done').addEventListener('click',e =>{
+    globalStatus = 3
+    regroupStatus()
+})
+
+let urgent = document.getElementById('urgent').addEventListener('click',e =>{
+    globalStatus = 4
+    regroupStatus()
+})
+
+
 //----------------------Partie récupération des infos-------------//
 
 // localStorage.setItem("Info formulaire", document.querySelector("#bsumit").value);
