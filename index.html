@@ -4,17 +4,16 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Menu de notre friterie">
-        <title>A la bonne frite</title>
+        <meta name="description" content="Tableau de gestion">
+        <title>Pas vraiment Trello</title>
         <link rel="stylesheet" href="./assets/style.css">
-        <script defer src="./assets/script.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <header>
             <nav>
                 <button id="genForm">Ajouter formulaire</button>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <a href="javascript:void(0);" class="icon" id="jsID">
                     <div class="menu btn2" id = "menu_burger">
                         <div class="icon"></div>
                     </div>
@@ -28,66 +27,7 @@
             </nav>
         </header>
         <main>
-            <div id="all_card">
-                <div class="card">
-                    <div class="title">Titel</div>
-                    <div class="timeLeft">j-15</div>
-                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
-                    <div class="date">12-05-2010</div>
-                    <div class="status">
-                        <span class="status1">1</span>
-                        <span class="status2">2</span>
-                        <span class="status3">3</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Titel</div>
-                    <div class="timeLeft">j-15</div>
-                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
-                    <div class="date">12-05-2010</div>
-                    <div class="status">
-                        <span class="status1">1</span>
-                        <span class="status2">2</span>
-                        <span class="status3">3</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Titel</div>
-                    <div class="timeLeft">j-15</div>
-                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
-                    <div class="date">12-05-2010</div>
-                    <div class="status">
-                        <span class="status1">1</span>
-                        <span class="status2">2</span>
-                        <span class="status3">3</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Titel</div>
-                    <div class="timeLeft">j-15</div>
-                    <div class="desc">blalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalbablalba</div>
-                    <div class="date">12-05-2010</div>
-                    <div class="status">
-                        <span class="status1">1</span>
-                        <span class="status2">2</span>
-                        <span class="status3">3</span>
-                    </div>
-                </div>
-            </div>
         </main>
-        <script>
-            document.getElementById("menu_burger").addEventListener("click", function()
-            {
-                document.getElementById("menu_burger").classList.toggle("open");
-            });
-            function myFunction() {
-              var x = document.getElementById("burger");
-              if (x.style.display === "block") {
-                x.style.display = "none";
-              } else {
-                x.style.display = "block";
-              }
-            }
-            </script>
+        <script src="./exec/script.js" type="module"></script>
     </body>
-</html>
+    </html>
