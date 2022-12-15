@@ -14,17 +14,17 @@ let htmlCode = `<div class="form" id="form">
                     </div>
                     <div class="title2">Create activity</div>
                     <div class="input-container ic1">
-                        <input class="input" id="title" type="text" placeholder=" " />
+                        <input class="input" id="title" type="text" placeholder=" " required="required"/>
                         <div class="cut"></div>
                         <label for="title" class="placeholder">Nom de l'activite</label>
                     </div>
                     <div class="input-container ic2">
-                        <input class="input" type="text" id="desc" placeholder=" " />
+                        <input class="input" type="text" id="desc" placeholder=" " required="required"/>
                         <div class="cut"></div>
                         <label for="desc" class="placeholder">Description</label>
                     </div>
                     <div class="input-container ic2">
-                        <input id="date" class="input" type="date" />
+                        <input id="date" class="input" type="date" required="required"/>
                     </div>
                     <div class="input-container ic2">
                         <select id="status" class="input">
@@ -101,12 +101,23 @@ function genForm()
             let desc = document.getElementById("desc").value;
             let date = document.getElementById("date").value;
             let status = document.getElementById("status").value;
-            
-            let newForm = new Formulaire(title, desc, date, status)
 
-            listForm.push(newForm);
-
-            regroupStatus();
+            if (title =='' || desc =='' || date =='' || status==''){
+                window.alert("attention champ vide");
+            }
+            else
+            {
+                let newForm = new Formulaire(title, desc, date, status)
+                // listForm =localStorage.getItem('myArray');
+                // console.log(listForm)
+                // listForm = JSON.parse(listForm);
+                // if (!listForm)
+                //     listForm = [];
+                listForm.push(newForm);
+                console.log(listForm)
+                // localStorage.setItem("listForms", JSON.stringify(listForm));
+                regroupStatus();
+            }
         });
 };
 
@@ -151,14 +162,31 @@ document.getElementById("jsID").addEventListener("click", function()
 
 function regroupStatus()
 {
-    let tmp = '';
+    let tmp = '', sorted = [];
     const formCard = document.getElementsByTagName("main")[0];
+    const byValue = (a,b) => a.time - b.time;
+    const byText = (a,b) => a.title.localeCompare(b.title);
     
-    for (let elem of listForm){
-        if(elem.status == globalStatus || globalStatus == 0){
+    if(globalStatus == 4){
+        sorted = [...listForm].sort(byValue);
+        for (let elem of sorted){
             tmp += elem.affCard();
         }
     }
+    else if (globalStatus == 5){
+        sorted = [...listForm].sort(byText);
+        for (let elem of sorted){
+            tmp += elem.affCard();
+        }
+    }
+    else{
+        for (let elem of listForm){
+            if(elem.status == globalStatus || globalStatus == 0){
+                tmp += elem.affCard();
+            }
+        }
+    }
+
     formCard.innerHTML='<div id="all_card">' + tmp + '</div>';
 }
 
@@ -180,6 +208,16 @@ let done = document.getElementById('done').addEventListener('click',e =>{
 
 let urgent = document.getElementById('urgent').addEventListener('click',e =>{
     globalStatus = 4
+    regroupStatus()
+})
+
+let alpha = document.getElementById('alpha').addEventListener('click',e =>{
+    globalStatus = 5
+    regroupStatus()
+})
+
+let reset = document.getElementById('reset').addEventListener('click',e =>{
+    globalStatus = 0
     regroupStatus()
 })
 

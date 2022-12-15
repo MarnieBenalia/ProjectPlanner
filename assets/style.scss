@@ -30,11 +30,12 @@ header
 {
 	margin-top: 2.5vw;
 	margin-left: 15vw;
-	height: 10vw;
+	height: 12vw;
+	width: 45vw;
 	font-size: 4vw;
 	color: #eee;
 	background-color: #15172b;
-	padding: 2vw 7vw;
+	padding: auto 7vw;
 	border: solid #15172b 2px;
 	border-radius: 12vw;
 	transition : 1s;
@@ -43,7 +44,7 @@ header
 	&:hover
 	{
 		transition : 1s;
-		padding: 2vw 9vw;
+		padding: auto 9vw;
 		background-color: #eee;
 		color: #15172b;
 		border: solid 2px #15172b;
@@ -56,16 +57,18 @@ header
   {
 	  margin-top: 2.5vw;
 	  margin-left: 2vw;
-	  height: 10vw;
-	  font-size: 2vw;
+	  height: 6vw;
+	width: 30vw;
+	  font-size: 1.5vw;
 	  color: #eee;
 	  background-color: #15172b;
-	  padding: 2vw 7vw;
+	  padding: 1vw 7vw;
 	  border: solid #15172b 2px;
 	  border-radius: 12vw;
 	  transition : 1s;
 	  cursor: pointer;    
 	  display:inline-block;
+	  text-align: center;
 	  &:hover
 	  {
 		  transition : 1s;
@@ -133,9 +136,9 @@ nav
 		{
 		  margin-left: 1vw;
 		  margin-top: 2.5vw;
-		  height: 10vw;
-		  width: 15vw;
-		  font-size: 2vw;
+		  height: 6vw;
+		  width: 10vw;
+		  font-size: 1.5vw;
 		  color: #eee;
 		  background-color: #15172b;
 		  padding: 1vw 1vw;
