@@ -150,25 +150,37 @@ function newList(newForm)
     return (listForm);
 }
 
-function compareStatus(xyz)
+/**
+ * Mise a jour du statut d'une des cartes de la liste et mise a jour de celle-ci dans le localStorage
+ * Details:
+ *      1       Initialisation des variables
+ *      2       Parcourt toutes les cartes
+ *      3       Quand il trouve sa classe, on sort de la boucle for avec la position de la classe
+ *      4       Modifie le statut de la carte desiree
+ *      5       Conversion de la liste de classe en liste d'objet avant de remettre a jour la liste d'objet du localStorage
+ *      6       Reaffichage des cartes
+ * 
+ * Params:
+ *      x       =       Valeur du statut de la carte a modifier
+ * 
+ * Return:
+ *      ...
+ */
+function compareStatus(x)
 {
-    let index = 0;
-    for (let elem of listForm)
+    let index = 0; //1
+    for (let elem of listForm) //2
     {
-        if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) 
-        {
+        if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //3
             break;
-        }
         index++;
     }
-    listForm[index].status = xyz;
-
-    let tmp = [];
+    listForm[index].status = x; //4
+    let tmp = []; //5
     for (let elem of listForm)
         tmp.push(elem.genOut());
     localStorage.setItem("listForms", JSON.stringify(tmp));
-
-    regroupStatus();    
+    regroupStatus(); //6
 }
 
 /**
@@ -178,16 +190,22 @@ function compareStatus(xyz)
  *      1       Selectionne toutes les cartes
  *      2       Parcourt toute la liste de cartes
  *      3       Extrait les contenus HTML des balises internes a la class card
- *      4            
- * 
- * 
- *      4       Ajout d'une fonction sur l'icon poubelle
- *      5       Initialisation des variables
- *      6       Parcourt toutes les cartes
- *      7       Quand il trouve sa classe, on sort de la boucle for avec la position de la classe
- *      8       Ajoute toutes les cartes sauf la cartes a supprimer dans une liste temporaire
- *      9       Conversion de la liste de classe en liste d'objet avant de remettre a jour la liste d'objet du localStorage
- *      10      Reaffichage des cartes
+ *      4       Extrait les balises et le contenu HTML pour les status des cartes
+ *      5       Isolement du nombre de jours restants
+ *      6       Selection de la classe face1
+ *      7       Definition du background en fonction du statut
+ *      8       Mis a niveau de l'opacite pour les 3 status
+ *      9       Elevation de l'opacite pour le statut actuel
+ *      10      Ajoute une fonction au click du statut
+ *      11      Augmentation de son opacite et mise a niveau des autres
+ *      12      Mise a jour du statut avec la fonction "compareStatus" (voir la fonction compareStatus)
+ *      13       Ajout d'une fonction sur l'icon poubelle
+ *      14      Initialisation des variables
+ *      15      Parcourt toutes les cartes
+ *      16      Quand il trouve sa classe, on sort de la boucle for avec la position de la classe
+ *      17      Ajoute toutes les cartes sauf la cartes a supprimer dans une liste temporaire
+ *      18      Conversion de la liste de classe en liste d'objet avant de remettre a jour la liste d'objet du localStorage
+ *      19      Reaffichage des cartes
  * 
  * Params:
  *      listForm    =   Liste de toutes les cartes sous formes de classe
@@ -204,76 +222,66 @@ function addClickTrash(listForm)
         let tmp_desc = elem.getElementsByClassName('desc')[0].textContent;
         let tmp_date = elem.getElementsByClassName('date')[0].textContent;
         let timeLeft = elem.getElementsByClassName('timeLeft')[0].textContent;
-        let status = elem.getElementsByClassName('statusHidden')[0].textContent;
+        let status = elem.getElementsByClassName('statusHidden')[0].textContent; //4
         let status1 = elem.getElementsByClassName('status1')[0];
         let status2 = elem.getElementsByClassName('status2')[0];
         let status3 = elem.getElementsByClassName('status3')[0];
-
-        ///Background en fct du timeleft
-        timeLeft = timeLeft.substr(2);
-        let classeFace = elem.getElementsByClassName('face1')[0];
-        if(timeLeft >= 20)
+        timeLeft = timeLeft.substr(2); //5
+        let classeFace = elem.getElementsByClassName('face1')[0];//6
+        if(timeLeft >= 20) //7
             classeFace.style.backgroundColor = '#81c654';
         else if (timeLeft >= 10)
             classeFace.style.backgroundColor = '#e89721';
         else  
             classeFace.style.backgroundColor = '#f44242';
-
-        ////EFFET STATUT
-        status1.style.opacity = "0.2";
+        status1.style.opacity = "0.2";//8
         status2.style.opacity = "0.2";
         status3.style.opacity = "0.2";
-        if (status == 1)
+        if (status == 1) //9
             status1.style.opacity = "1";
         else if (status == 2 )
             status2.style.opacity = "1";
         else if (status == 3 )
             status3.style.opacity = "1";
-
-        status1.addEventListener('click', function()
+        status1.addEventListener('click', function() //10
         {
-            status1.style.opacity = "1";
+            status1.style.opacity = "1"; //11
             status2.style.opacity = "0.2";
             status3.style.opacity = "0.2";
-            compareStatus(1);
-        })
-
-        status2.addEventListener('click', function()
+            compareStatus(1); //12
+        });
+        status2.addEventListener('click', function() //10
         {
-            status1.style.opacity = "0.2";
+            status1.style.opacity = "0.2"; //11
             status2.style.opacity = "1";
             status3.style.opacity = "0.2";
-            compareStatus(2);
-        })
-
-        status3.addEventListener('click', function()
+            compareStatus(2); //12
+        });
+        status3.addEventListener('click', function() //10
         {
-            status1.style.opacity = "0.2";
+            status1.style.opacity = "0.2"; //11
             status2.style.opacity = "0.2";
             status3.style.opacity = "1";
-            //
-            compareStatus(3);
-        })
-
-        ////Poubelle
+            compareStatus(3); //12
+        });
         let poubelle = elem.getElementsByClassName('delete')[0];
-        poubelle.addEventListener('click', function () //4
+        poubelle.addEventListener('click', function () //13
         {
-            let tmp = [], index = 0, index1 = 0; //5
-            for (let elem of listForm) //6
+            let tmp = [], index = 0, index1 = 0; //14
+            for (let elem of listForm) //15
             {
-                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
+                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //16
                     break;
                 index++;
             }
-            for (let elem of listForm) //8
+            for (let elem of listForm) //17
                 if (index != index1++)
                     tmp.push(elem);
-            let test = []; //9
+            let test = []; //18
             for (let elem of tmp)
                 test.push(elem.genOut());
             localStorage.setItem("listForms", JSON.stringify(test));
-            regroupStatus(); //10
+            regroupStatus(); //19
         });
     }
 }
