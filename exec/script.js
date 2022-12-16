@@ -44,6 +44,7 @@ let htmlCode = `<div class="form" id="form">
                             <option value="1">To do</option>
                             <option value="2">Doing</option>
                             <option value="3">Done</option>
+                            <option value="toMove"></option>
                         </select>
                     </div>
                     <button type="text" class="submit" id ="bSubmit">submit</button>
@@ -176,6 +177,19 @@ function addClickTrash(listForm)
     let newPoub = document.getElementsByClassName('card'); //1
     for (let elem of newPoub) //2
     {
+        let timeLeft = elem.getElementsByClassName('timeLeft')[0].textContent;
+        timeLeft = timeLeft.substr(2);
+        let classeFace = elem.getElementsByClassName('face1')[0];
+        console.log(timeLeft);
+        if(timeLeft >= 20){
+            classeFace.style.backgroundColor = '#81c654';
+        }
+        else if (timeLeft >= 10){
+            classeFace.style.backgroundColor = '#e89721';
+        }
+        else  {
+            classeFace.style.backgroundColor = '#f44242';
+        }
         let tmp_title = elem.getElementsByClassName('title')[0].textContent; //3
         let tmp_desc = elem.getElementsByClassName('desc')[0].textContent;
         let tmp_date = elem.getElementsByClassName('date')[0].textContent;
@@ -362,3 +376,4 @@ document.getElementById('alpha').addEventListener('click', function()
 //----------------------------------------------------------------//
 
 regroupStatus();
+
