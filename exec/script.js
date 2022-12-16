@@ -44,7 +44,6 @@ let htmlCode = `<div class="form" id="form">
                             <option value="1">To do</option>
                             <option value="2">Doing</option>
                             <option value="3">Done</option>
-                            <option value="toMove"></option>
                         </select>
                     </div>
                     <button type="text" class="submit" id ="bSubmit">submit</button>
@@ -69,7 +68,7 @@ let listForm = [];
  *                  =>  Box alert pour signaler qu'il faut le completer
  *          b   Si remplie
  *                  =>  A   Conversion des donnees en classe (et execution de la fonction newList(voir la fonction pour plus d'info))
- *                      B   Execution de la focntion d'affichage des cartes (voir regroupStatus pour plus d'infos)
+ *                      B   Execution de la fonction d'affichage des cartes (voir regroupStatus pour plus d'infos)
  *      7       Ajout d'une fonction sur la croix de sortie, il s'agit d'une animation de rotation de la croix
  *      8       Code CSS pour l'animation execute avec le parametre "animte"
  *      9       Le setTimeout permet d'attendre la fin de l'animation avant de remove le code HTML
@@ -118,7 +117,7 @@ function genForm()
  *                  =>  a   Lance une boucle for qui parcourt tous les objets
  *                      b   Si l'objet n'est pas vide alors 
  *                              =>  A   Conversion de l'objet en classe puis ajout dans la liste listForm
- *      4       Si une carte est a ajoutee
+ *      4       Si une carte est a ajouter
  *                  =>  a   Ajout de la carte a la fin de la liste
  *      5       Initialisation de test
  *      6       Parcourt listForm
@@ -163,7 +162,7 @@ function newList(newForm)
  *      6       Parcourt toutes les cartes
  *      7       Quand il trouve sa classe, on sort de la boucle for avec la position de la classe
  *      8       Ajoute toutes les cartes sauf la cartes a supprimer dans une liste temporaire
- *      9       Conversion de la lsite de classe en lsite d'objet avant de remettre a jour la liste d'objet du localStorage
+ *      9       Conversion de la liste de classe en liste d'objet avant de remettre a jour la liste d'objet du localStorage
  *      10      Reaffichage des cartes
  * 
  * Params:
@@ -172,27 +171,118 @@ function newList(newForm)
  * Return:
  *      Rien
  */
+
 function addClickTrash(listForm)
 {
     let newPoub = document.getElementsByClassName('card'); //1
     for (let elem of newPoub) //2
     {
-        let timeLeft = elem.getElementsByClassName('timeLeft')[0].textContent;
-        timeLeft = timeLeft.substr(2);
-        let classeFace = elem.getElementsByClassName('face1')[0];
-        console.log(timeLeft);
-        if(timeLeft >= 20){
-            classeFace.style.backgroundColor = '#81c654';
-        }
-        else if (timeLeft >= 10){
-            classeFace.style.backgroundColor = '#e89721';
-        }
-        else  {
-            classeFace.style.backgroundColor = '#f44242';
-        }
         let tmp_title = elem.getElementsByClassName('title')[0].textContent; //3
         let tmp_desc = elem.getElementsByClassName('desc')[0].textContent;
         let tmp_date = elem.getElementsByClassName('date')[0].textContent;
+
+        ///Background en fct du timeleft
+        let timeLeft = elem.getElementsByClassName('timeLeft')[0].textContent;
+        timeLeft = timeLeft.substr(2);
+        let classeFace = elem.getElementsByClassName('face1')[0];
+        if(timeLeft >= 20)
+            classeFace.style.backgroundColor = '#81c654';
+        else if (timeLeft >= 10)
+            classeFace.style.backgroundColor = '#e89721';
+        else  
+            classeFace.style.backgroundColor = '#f44242';
+
+        ////EFFET STATUT
+        let status = elem.getElementsByClassName('statusHidden')[0].textContent;
+        let status1 = elem.getElementsByClassName('status1')[0];
+        let status2 = elem.getElementsByClassName('status2')[0];
+        let status3 = elem.getElementsByClassName('status3')[0];
+        status1.style.opacity = "0.2";
+        status2.style.opacity = "0.2";
+        status3.style.opacity = "0.2";
+        if (status == 1)
+            status1.style.opacity = "1";
+        else if (status == 2 )
+            status2.style.opacity = "1";
+        else if (status == 3 )
+            status3.style.opacity = "1";
+
+        status1.addEventListener('click', function()
+        {
+            status1.style.opacity = "1";
+            status2.style.opacity = "0.2";
+            status3.style.opacity = "0.2";
+            //
+            let index = 0;
+            for (let elem of listForm)
+            {
+                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
+                {
+                    break;
+                }
+                index++;
+            }
+            listForm[index].status = 1;
+
+            let tmp = [];
+            for (let elem of listForm)
+                tmp.push(elem.genOut());
+            localStorage.setItem("listForms", JSON.stringify(tmp));
+
+            regroupStatus(); 
+        })
+
+        status2.addEventListener('click', function()
+        {
+            status1.style.opacity = "0.2";
+            status2.style.opacity = "1";
+            status3.style.opacity = "0.2";
+            //
+            let index = 0;
+            for (let elem of listForm)
+            {
+                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
+                {
+                    break;
+                }
+                index++;
+            }
+            listForm[index].status = 2;
+
+            let tmp = [];
+            for (let elem of listForm)
+                tmp.push(elem.genOut());
+            localStorage.setItem("listForms", JSON.stringify(tmp));
+            
+            regroupStatus(); 
+        })
+
+        status3.addEventListener('click', function()
+        {
+            status1.style.opacity = "0.2";
+            status2.style.opacity = "0.2";
+            status3.style.opacity = "1";
+            //
+            let index = 0;
+            for (let elem of listForm)
+            {
+                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
+                {
+                    break;
+                }
+                index++;
+            }
+            listForm[index].status = 3;
+
+            let tmp = [];
+            for (let elem of listForm)
+                tmp.push(elem.genOut());
+            localStorage.setItem("listForms", JSON.stringify(tmp));
+            
+            regroupStatus(); 
+        })
+
+        ////Poubelle
         let poubelle = elem.getElementsByClassName('delete')[0];
         poubelle.addEventListener('click', function () //4
         {
@@ -221,7 +311,7 @@ function addClickTrash(listForm)
  *      1       Initialisation des variables
  *      2       Extraction de la liste de cartes depuis le localStorage
  *      3       Si globalStatus est egal a 4
- *                  =>  a   Parcourt toute la liste triee (croissant) par rapport au nombre de jours restans
+ *                  =>  a   Parcourt toute la liste triee (croissant) par rapport au nombre de jours restants
  *                      b   Ajoute la carte HTML au HTML total
  *      4       Si globalStatus est egal a 5
  *                  =>  a   Parcourt toute la liste triee (croissant) par rapport au nombre de titres
@@ -267,7 +357,7 @@ function regroupStatus()
 /**
  * Fonction au click
  * 
- *      Animation pour les bares du menu burger
+ *      Animation pour les barres du menu burger
  */
 document.getElementById("menu_burger").addEventListener("click", function()
 {
@@ -376,4 +466,3 @@ document.getElementById('alpha').addEventListener('click', function()
 //----------------------------------------------------------------//
 
 regroupStatus();
-

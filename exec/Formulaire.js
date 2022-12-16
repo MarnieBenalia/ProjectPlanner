@@ -78,17 +78,16 @@ export class Formulaire
                                 <div class="content">
                                     <h3 class="title">${this.title}</h3>
                                     <div class="timeLeft">J-${this.time}</div>
+                                    <span class="status1" opacity="0.2"><img src="assets/images/deadline.png" alt="deadline"></span>
+                                    <span class="status2" opacity="0.2"><img src="assets/images/processing-time.png" alt="processing-time"></span>
+                                    <span class="status3" opacity="0.2"><img src="assets/images/support.png" alt="suport"></span>
+                                    <div class="statusHidden">${this.status}</div>
                                 </div>
                             </div>
                             <div class="face face2">
                                 <div class="content">
                                     <div class="desc">${this.desc}</div>
                                     <div class="date">${this.date}</div>
-                                    <div class="status">
-                                        <span class="status1"></span>
-                                        <span class="status2"></span>
-                                        <span class="status3"></span>
-                                    </div>
                                     <div class="delete"><img class="trash" alt="trash" src="assets/images/trash.svg"></div>
                                 </div>
                             </div>
