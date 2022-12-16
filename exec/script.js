@@ -150,6 +150,27 @@ function newList(newForm)
     return (listForm);
 }
 
+function compareStatus(xyz)
+{
+    let index = 0;
+    for (let elem of listForm)
+    {
+        if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) 
+        {
+            break;
+        }
+        index++;
+    }
+    listForm[index].status = xyz;
+
+    let tmp = [];
+    for (let elem of listForm)
+        tmp.push(elem.genOut());
+    localStorage.setItem("listForms", JSON.stringify(tmp));
+
+    regroupStatus();    
+}
+
 /**
  * Parcourt toutes les cartes pour ajouter un addEventlistener sur les logo de poubelles
  * Cela permet de retirer la carte de la liste et de localStorage
@@ -157,6 +178,9 @@ function newList(newForm)
  *      1       Selectionne toutes les cartes
  *      2       Parcourt toute la liste de cartes
  *      3       Extrait les contenus HTML des balises internes a la class card
+ *      4            
+ * 
+ * 
  *      4       Ajout d'une fonction sur l'icon poubelle
  *      5       Initialisation des variables
  *      6       Parcourt toutes les cartes
@@ -171,7 +195,6 @@ function newList(newForm)
  * Return:
  *      Rien
  */
-
 function addClickTrash(listForm)
 {
     let newPoub = document.getElementsByClassName('card'); //1
@@ -180,9 +203,13 @@ function addClickTrash(listForm)
         let tmp_title = elem.getElementsByClassName('title')[0].textContent; //3
         let tmp_desc = elem.getElementsByClassName('desc')[0].textContent;
         let tmp_date = elem.getElementsByClassName('date')[0].textContent;
+        let timeLeft = elem.getElementsByClassName('timeLeft')[0].textContent;
+        let status = elem.getElementsByClassName('statusHidden')[0].textContent;
+        let status1 = elem.getElementsByClassName('status1')[0];
+        let status2 = elem.getElementsByClassName('status2')[0];
+        let status3 = elem.getElementsByClassName('status3')[0];
 
         ///Background en fct du timeleft
-        let timeLeft = elem.getElementsByClassName('timeLeft')[0].textContent;
         timeLeft = timeLeft.substr(2);
         let classeFace = elem.getElementsByClassName('face1')[0];
         if(timeLeft >= 20)
@@ -193,10 +220,6 @@ function addClickTrash(listForm)
             classeFace.style.backgroundColor = '#f44242';
 
         ////EFFET STATUT
-        let status = elem.getElementsByClassName('statusHidden')[0].textContent;
-        let status1 = elem.getElementsByClassName('status1')[0];
-        let status2 = elem.getElementsByClassName('status2')[0];
-        let status3 = elem.getElementsByClassName('status3')[0];
         status1.style.opacity = "0.2";
         status2.style.opacity = "0.2";
         status3.style.opacity = "0.2";
@@ -212,24 +235,7 @@ function addClickTrash(listForm)
             status1.style.opacity = "1";
             status2.style.opacity = "0.2";
             status3.style.opacity = "0.2";
-            //
-            let index = 0;
-            for (let elem of listForm)
-            {
-                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
-                {
-                    break;
-                }
-                index++;
-            }
-            listForm[index].status = 1;
-
-            let tmp = [];
-            for (let elem of listForm)
-                tmp.push(elem.genOut());
-            localStorage.setItem("listForms", JSON.stringify(tmp));
-
-            regroupStatus(); 
+            compareStatus(1);
         })
 
         status2.addEventListener('click', function()
@@ -237,24 +243,7 @@ function addClickTrash(listForm)
             status1.style.opacity = "0.2";
             status2.style.opacity = "1";
             status3.style.opacity = "0.2";
-            //
-            let index = 0;
-            for (let elem of listForm)
-            {
-                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
-                {
-                    break;
-                }
-                index++;
-            }
-            listForm[index].status = 2;
-
-            let tmp = [];
-            for (let elem of listForm)
-                tmp.push(elem.genOut());
-            localStorage.setItem("listForms", JSON.stringify(tmp));
-            
-            regroupStatus(); 
+            compareStatus(2);
         })
 
         status3.addEventListener('click', function()
@@ -263,23 +252,7 @@ function addClickTrash(listForm)
             status2.style.opacity = "0.2";
             status3.style.opacity = "1";
             //
-            let index = 0;
-            for (let elem of listForm)
-            {
-                if ((elem.title == tmp_title) && (elem.desc == tmp_desc) && (elem.date == tmp_date)) //7
-                {
-                    break;
-                }
-                index++;
-            }
-            listForm[index].status = 3;
-
-            let tmp = [];
-            for (let elem of listForm)
-                tmp.push(elem.genOut());
-            localStorage.setItem("listForms", JSON.stringify(tmp));
-            
-            regroupStatus(); 
+            compareStatus(3);
         })
 
         ////Poubelle
