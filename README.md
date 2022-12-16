@@ -4,7 +4,7 @@
 
 Nous étions un groupe de 3, Marnie Benalia, Nathalie Goffette, Hugo Goorickx.
 
-#Qu'est ce que c'est ?
+# Qu'est ce que c'est ?
 
 Nous avons travaillé sur le prototype d'une application du genre "Trello".
 
